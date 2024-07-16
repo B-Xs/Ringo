@@ -1,0 +1,1883 @@
+return (function(a, A, t, S)
+    local l = string.byte
+    local R = string.char
+    local r = string.sub
+    local _ = table.concat
+    local e = table.insert
+    local Y = math.ldexp
+    local B = getfenv or function()
+            return _ENV
+        end
+    local e = setmetatable
+    local s = select
+    local e = unpack or table.unpack
+    local d = tonumber
+    function xor_decrypt(o, Z)
+        local n = {}
+        for e = 1, #o do
+            local S = Z:byte((e - 1) % #Z + 1)
+            local Z = o:byte(e)
+            n[e] = string.char(bit32.bxor(Z, S))
+        end
+        return table.concat(n)
+    end
+    local h = "key"
+    local e = bit and bit.bxor or bit32.bxor
+    local e = {}
+    local e = table.concat
+    local e = table.insert
+    local e = string.find
+    local e = string.sub
+    local e = string.gmatch
+    local e = string.char
+    local function c(i)
+        local n, Z, t = "", "", {}
+        local o = 256
+        local S = {}
+        for e = 0, o - 1 do
+            S[e] = R(e)
+        end
+        local e = 1
+        local function U()
+            local n = d(r(i, e, e), 36)
+            e = e + 1
+            local Z = d(r(i, e, e + n - 1), 36)
+            e = e + n
+            return Z
+        end
+        n = R(U())
+        t[1] = n
+        while e < #i do
+            local e = U()
+            if S[e] then
+                Z = S[e]
+            else
+                Z = n .. r(n, 1, 1)
+            end
+            S[o] = n .. r(Z, 1, 1)
+            t[#t + 1], n, o = Z, Z, o + 1
+        end
+        return table.concat(t)
+    end
+    local d = c(xor_decrypt(a, h))
+    local Z = bit and bit.bxor or function(e, Z)
+            while true do
+                local t = 0
+                if t == 0 then
+                    while true do
+                        local n = 0
+                        local o, S = 1, 0
+                        if n == 0 then
+                            while e > 0 and Z > 0 do
+                                while true do
+                                    local n = 0
+                                    local i, t = e % 2, Z % 2
+                                    if n == 0 then
+                                        if i ~= t then
+                                            S = S + o
+                                        end
+                                        n = 1
+                                    end
+                                    if n == 1 then
+                                        e, Z, o = (e - i) / 2, (Z - t) / 2, o * 2
+                                        n = 2
+                                        break
+                                    end
+                                    if n == 3 then
+                                        break
+                                    end
+                                    local e, e = e % 2, Z % 2
+                                end
+                            end
+                            n = 1
+                        end
+                        if n == 1 then
+                            if e < Z then
+                                e = Z
+                            end
+                            n = 2
+                        end
+                        if n == 2 then
+                            while e > 0 do
+                                while true do
+                                    local n = 0
+                                    local Z = e % 2
+                                    if n == 0 then
+                                        if Z > 0 then
+                                            S = S + o
+                                        end
+                                        n = 1
+                                    end
+                                    if n == 1 then
+                                        e, o = (e - Z) / 2, o * 2
+                                        n = 2
+                                        break
+                                    end
+                                    if n == 3 then
+                                        break
+                                    end
+                                    local e = e % 2
+                                end
+                            end
+                            n = 3
+                        end
+                        if n == 3 then
+                            return S
+                        end
+                        if n == 5 then
+                            break
+                        end
+                        local e, e = 1, 0
+                    end
+                    t = 1
+                    break
+                end
+                if t == 1 then
+                    break
+                end
+            end
+        end
+    local e = table.concat
+    local a = table.insert
+    local f = string.find
+    local T = string.sub
+    local o = string.gmatch
+    local i = string.char
+    local n = {}
+    local i = function(Z)
+        if #n == 0 then
+            for e = 0, 255 do
+                n[e] = i(e)
+            end
+        end
+        return n[Z] or i(Z)
+    end
+    local h = tonumber
+    local function U(t)
+        local S, Z, n = {}, {}, {}
+        for e in o(t, "([^C]+)") do
+            a(S, e)
+        end
+        for e, n in pairs(S) do
+            for n in o(n, "([^A*B]+)") do
+                if not Z[e] then
+                    Z[e] = {}
+                end
+                a(Z[e], n)
+            end
+        end
+        for Z, S in pairs(Z) do
+            for e, o in pairs(S) do
+                if S[e + 1] and not (o - S[e + 1] < 0) then
+                    if not n[Z] then
+                        n[Z] = {}
+                    end
+                    a(n[Z], i(o - S[e + 1]))
+                end
+            end
+            if f(e(n[Z]), "%%b:%%") then
+                for e in o(e(n[Z]), "([^%%b:%%]+)") do
+                    n[Z] = T(e, 1) == "true" and true or false
+                end
+            elseif f(e(n[Z]), "%%n:%%") then
+                for e in o(e(n[Z]), "([^%%n:%%]+)") do
+                    n[Z] = h(T(e, 1))
+                end
+            end
+        end
+        return n
+    end
+    local i =
+        U(
+        xor_decrypt(
+            [==[*S\Y Z^#\\V/\T,ZV[)ZU*S_Z U_#\RS/\W,Z[X)Z\*SUS ZZ#\\R/][.*S\[ ZX#_[R/RR,ZQ_)UY*S_X U]#\YQ/\W.*S\R UY#\RZ/SZ,ZQ\)U^*S\S UZ#\XV/SV,ZP\)TU*S\S [^!,ZS])U^*SU[ Z[#\_Q/SW,ZSU)Z\*S^] U\!,ZRY)TZ*SU_ Z_#\YW/]U,ZP])Z^*S^[ U[!,ZS\)UY*ST[ U[#\_W/SU,ZS_)UX*S^] U^!,ZP^)Z[*SUR ZR#\XQ/\W,ZSU)Z\*SY[ US!,ZS^)U[*SU^ Z^#\XT/\Z,ZPZ)[]*S_S Z_!,ZQ_)Z[(#\SU/\S,Z[\)UZ*P]] UR#\\U/\T.*S\X Z]#\SV/ST,ZP^)TX*S]_ [\#\SZ/ST,ZT[)TT*SUY Z_#\RR/\W,Z[])ZT(#\[Z/\S,ZUU)TU*S^Y Z_#\ZR/\Q,ZP\)TU(#_\T/\S,Y[_)Z[*PZZ ZR#_\T/\[,YUT)TT*PUS Z^#_SZ/\U,YT[)T[*PT_ U\#_SQ/SW.*S]^ [S#\\W/]W,ZPU)U]*S\S UZ#\ZU/]Z,ZP[)U_*S_Z ZY!,ZZ\)U^*SU^ Z_#\SV/SW,ZU\)UY*SU^ Z\#\ZU/SW,ZZ^)ZU*SU[ UY#\\P/]U,Z[_)U[*S_Z Z[#\YQ/\Q,ZU_)UY*P]Z UZ#\SP/\S,Z[[)Z_*S^[ [R#\\Q/\W,ZZX)Z]*SU\ ZZ#TR [\#\SW/SZ,Z[\)Z\*SUR UR#TR [\#\\V/\T,ZZ[)Z\*SUY []#\ZV/]Z,ZTU)U]*P]Z UZ#\SV/\Q,Z[Z)Z^*[T)TZ*SUS Z\#\SW/\S,ZRT)UZ*S[^ [\#\\Z/\Q,Z[])UY*S\] [^#\YW/\W,ZS^)TZ*SU] US#\S[/][,ZZ_)U\*ST] UY#\_W/ST,ZZ_)UY*SZ] [^#\]U/]Z,ZUU)Z\*SUR UZ#T\ [^#\][/\V,ZZU)U^*P]] T[#_[Q/S[,ZZ\)U[*STS US#\SW/SP,Z[])ZU*SZX [^#\RS/SR,ZUZ)T[*STX ZR#\_U/ST,ZZ[)UZ*SZZ Z_#\RW/\[,ZUY)U]*S\\ ZZ#\\Q/\S,ZZ^)UX*P]Z T[#\RW/SV,Z[_)UU*S^X Z_#\SU/\[,ZUT)TU*SU^ U]#\\V/\U,Z[\)Z^*S_Y T[#\\Z/SQ,ZZU)U^*STX Z\#_[Q/S[,Z[\)Z[*ST^ U^#\\S/]Z,ZTU)TX*P]Y U\#\RT/\[,ZZ])Z_*SYY UZ#_[S/ST,ZZT)U^*SU^ ZZ#\\U/\P,ZUT)TT*SZX Z[#\ZT/\R,ZU])TZ*P][ U^#_[R/SQ,ZZ\)Z^*S^X Z_#\RT/SZ,YR])ZT*S[] [\#\\S/\V,Z[])Z_*S]_ ZY#\]R/]W,ZZZ)U_*STR UX#\RS/\U,ZU\)T[*STZ UZ#\]Z/]W,Z[])U^*SZ] Z\#\RV/RR,ZTX)TU*SU_ Z[#\_V/SQ,ZZY)TT*P]_ US#\RS/\U,ZZ])UX*SU] Z]#\SZ/SW,ZPY)UU*SU^ U]#\SW/SS,ZUY)UZ*STS U_#\_V/SW,ZU^)TX*SZ] [^#\\Q/\V,ZU\)UY*STZ UX#\ZW/SQ,ZT[)U\*ST[ Z^#_[S/SW,ZZU)UY*ST^ T[#\SV/\V,ZZX)Z_*SUX U_#\SW/SS,ZZ_)ZX*SUY [S#_[R/SW,ZZ])UT*P]_ US#\XT/\W,YRT)Z[*P]] UZ#\SZ/SR,ZZ_)U\*S[^ []#\]Q/]T,ZUU)U]*S\[ ZS#\\S/\T,ZZ_)TZ*STZ Z^#\R[/SW,Z[])ZX*ST] U]#\SZ/SW,ZTT)U]*SU_ U[#\SS/SV,Z[[)Z_*SY] U^#\SP/SR,YRX)ZU*STR UR#\\S/\P,YR])ZY*SZZ []#_[R/S[,ZUX)TX*S\X ZX#\\Q/\V,ZP^)Z_*SUZ Z]#\S[/SU,ZR\)T[*S[S ZX#\SV/][,YR^)ZZ*ST[ Z]#\SS/\T,Z[_)Z_*S[R []#\SR/SS,ZZU)ZY*SU] UR#\RS/\U,YR\)Z[*SUS U\#_[R/SV,ZQ])TT*SX[ UR#\YR/\P,ZS^)Z\*ST[ Z_#\\U/\Q,ZTZ)T[*SZ^ [^#\ZP/SR,ZZY)Z_*STR US#\SR/]T,ZP\)ZT*SZX [S#\XT/\W,ZQZ)ZT*S\S Z_#\YT/\T,ZQU)ZX*S^S U^#\ZS/\[,ZUZ)UZ*SU[ [R#\ZQ/SS,ZT^)TU*ST[ Z^#\RS/\W,Z[T)ZX*SZ[ [^#\RV/SV,ZU[)U^*SZR U[#\][/]W,ZZZ)[]*P]_ T[#\RW/SR,ZTZ)T[*SUZ [^#\\U/ST,ZU^)TU*S[^ ZY#\Y[/]Z,ZTY)TT*P]X US#\RZ/SP,ZZZ)U^*SZ^ Z[#\R[/S[,ZTT)T[*P]\ T[#\ST/SU,ZZ])U[*SZR UY#\RV/SR,ZPZ)ZZ*SU^ U[#\ZR/][,ZUY)U^*SU_ Z_#\]W/]W,ZSY)Z_*S[\ []#\SP/\P,ZTZ)TZ*SY^ U]#\SZ/\V,ZZZ)Z[*STY Z]#_[S/SV,YR\)ZZ*SZ] []#\[Z/\T,ZUZ)Z_*P]^ T[#\RZ/SP,Z[])U[*SUZ Z]#\ST/\T,ZZZ)ZY*SU[ UZ#\RR/ST,ZZ\)ZY*ST\ UX#_[W/RR,ZZX)ZY*P]X U\#\\Z/SU,ZZU)ZT*SXR []#\RS/SR,YR\)ZZ*S_Z UR#\\W/SR,YR\)Z[*ST[ Z_#\RU/SQ,ZZ[)Z\*P][ T[#\SZ/SW,YR[)ZT*SZX Z_#\\V/\R,ZZ\)ZY*P]Y US#\ZT/\T,ZTY)TX*S_R US#\SW/SV,YR])[]*SZR ZR#\_U/SZ,ZUZ)TT*SUY ZZ#\SS/SP,ZU^)U[*SZ] [S#\ZP/SR,ZUU)Z^*P]_ UR#\RS/\W,Z[^)UT*SU\ UY#\\[/][,ZU\)TU*SU] US#_[W/SV,Z[\)UX*S[R [S#\_S/SR,Z[U)Z^*ST_ ZS#\SV/\R,ZUY)TT*SU\ Z\#\RR/SU,ZP\)UX*SU] US#\S[/]Z,Z[Y)UU*SUZ U[#\_Q/SV,Z[_)ZY*SZR [S#\\R/\S,ZUU)Z\*SUZ ZX#\[W/\Q,ZUY)UT*P]Y U]#\RZ/SU,Z[Z)ZZ*STX Z]#\\Z/][,ZT^)TX*SU[ ZR#_[Q/S[,ZPZ)T[*SU] Z[#\\Z/]U,ZZ_)U_*ST_ Z\#\\V/]W,ZT[)TU*S[R [S#\RW/SS,ZQU)UT*ST_ U]#_[R/S[,ZTU)TT*SU[ UX#\SZ/SR,ZS_)Z]*SZ_ ZR#\ST/\U,ZUX)UY*SZ_ [^#\\U/]T,ZTX)TZ*P]Z U_#\\R/]Z,ZZ\)UT*SZ] Z^#\\[/]W,ZQ])TT*ST^ ZY#_[Z/SQ,Z[Y)Z[*SU^ Z_#\SZ/S[,ZU\)UY*SUX Z^#\YP/RR,ZUZ)Z_*SU_ Z^#\][/]Z,ZZ])U\*SUS Z\#\SQ/\Z,Z[U)U[*SZ\ Z]#\_T/SW,Z[_)[]*STR UY#\RP/SP,ZZT)[]*ST[ Z_#\SU/SP,YR\)[]*STR UR#\ZW/\W,ZUZ)UX*S^Y US#\XV/SZ,ZSY)TU*S\R ZX#\YV/SQ,ZUY)T[*SUZ Z[#\]Z/][,ZUY)UZ*SUX Z^#\[U/\W,ZZY)U_*SUR ZX#\RV/SR,ZQ])TT*[T)TX*S]X [R#\\P/\R,ZZX)UY*STZ Z\#\ZS/\[,ZZX)Z]*S^Y ZZ#\ZZ/][,ZPT)ZX*S_Z U]#_[[/ST,ZQ_)Z[*S^[ U_#\ZV/]Z,YRY)UT*SZZ ZZ#\RR/\[,RU/]W,ZZT)UZ*ST_ ZS#\SP/]Z,ZV[)ZX*STX UZ#_[W/S[,Z[^)UT*S_^ ZR#\YV/\Z,ZPY)ZY*P]Z ZS#\YS/\W,ZPX)UT*S\^ [R#\RP/]U,ZP\)Z]*S[Z Z[#\\R/]W,ZTZ)UY*SZ\ Z]#_[R/RR,ZU])U]*S^^ Z]#\SU/SP,ZTU)T[*S\R ZR#\\V/\[,Z[^)ZY*SZ[ [R#\SQ/\V,ZZ^)U_*S[_ []#\RP/\W,Z[])ZU*SZ_ ZY#\SV/SQ,Z[])U[*S[^ Z_#\RS/S[,ZUT)Z[*SUY ZZ#\RP/\Z,YR^)Z]*STS ZX#\YS/SR,ZU\)Z]*SUR Z\#\SU/\S,Z[T)ZX*S[_ ZZ#\RW/\[,Z[_)ZU*SZS Z\#\RP/SP,ZRZ)UX*STZ Z\#\RS/RR,ZZT)U^*ST[ ZX#\SS/]U,ZZY)UY*S]X ZZ#\]R/]W,ZU[)TZ*SZY ZZ#\R[/RR,ZUU)TZ*S[^ [\#_[T/S[,ZU\)TT*SZR Z\#\]U/]T,Z[\)UZ*S[S Z\#\SZ/ST,ZU^)Z]*SZY UZ#\\[/]U,YR^)ZZ*SU] ZY#\\U/SV,ZZ\)Z]*ST] U]#\S[/S[,ZV\)Z_*SU_ UR#\RP/SQ,ZZ[)ZX*SU_ Z^#\RS/SR,ZT^)TX*ST\ U[#\\S/][,ZZ_)Z]*S[\ []#\RT/SP,ZU_)Z\*SZZ [R#\\S/\Z,ZQ[)UX*S[] ZZ#\SP/\Q,ZU\)U]*ST\ US#\SV/\Q,ZU_)UY*SUR ZY#\\V/\P,ZUX)U^*SU] U^#\SS/]U,RU/]W,Z[Z)Z[*SUR Z^#\RQ/\R,YR[)Z\*S[^ Z[#\SZ/\[,ZU^)U_*SU\ ZS#\SU/\T,ZZ_)ZY*STX Z]#\S[/SU,ZZU)Z[*SZZ Z[#_[R/ST,ZT_)U\*SUZ ZR#\SR/SU,ZT])TT*STZ ZR#\RT/SR,Z[U)ZY*SZX U[#\_S/SR,ZZX)Z^*S_^ U^#\YT/SR,ZSX)TT*S\Y []#\YU/ST,ZZ\)TZ*SU^ U_#\S[/\Q,YR_)ZX*SU\ ZX#\SQ/\Q,ZR[)UY*S[S ZX#\RZ/S[,ZUY)U^*SZ_ [^#\SR/][,ZZX)ZZ*SU_ [\#\\R/]Z,ZU^)U\*SZ] Z^#\RR/\T,ZU\)Z]*S[\ [^#\]R/]U,ZT\)U]*SU] Z_#\RP/\T,ZZ_)TU*S[X Z[#\\Z/\U,Z[U)ZU*SU] U]#\Y[/\R,ZUY)T[*SUS Z\#\\W/\T,ZTY)TZ*SU] ZS#\[V/\P,ZU[)UY*STX Z]#\RR/SR,ZUU)UT*ST^ ZR#\SW/SR,YR])ZT*SUX ZX#\[P/\R,ZZY)ZT*SU] U]#\SQ/SW,ZZ_)TZ*S\\ Z\#\SW/SR,ZZU)UU*SUX ZZ#\SW/]Z,Z[^)UZ*S_S U_#\RQ/ST,ZTU)TZ*P]R US#\XQ/S[,Z[T)Z^*ST_ ZX#\SW/\Q,ZUZ)U[*S]S [\#\\Q/]Z,ZU\)TT*S\_ UY#\RQ/SQ,Z[Z)Z[*P]Z U^#\ZU/SW,ZZ\)U[*SZS [S#\SQ/\S,Z[T)Z_*SUS ZY#\[T/\V,Z[Y)Z^*ST[ Z]#\[S/][,Z[X)ZX*SU] Z^#\S[/\Q,ZR\)TT*SU[ ZX#\SU/ST,ZZU)TZ*S]_ ZY#\RS/\W,ZU[)U_*STZ T[#\SS/\S,ZRY)U_*ST_ U[#\]Z/]U,ZZ\)TX*SUX []#\SV/\R,ZZY)UY*S]Z [R#\SZ/SQ,ZZ\)U\*STY U[#_[W/SZ,ZZZ)U\*S]X ZZ#\RR/S[,ZUZ)TZ*SZ_ Z_#\XT/\U,ZZU)Z]*ST] U^#\\S/\P,ZU])U^*SU[ ZY#\[V/\P,ZT[)T[*STZ T[#\\V/\W,ZZU)UZ*S[S [S#\\U/\T,ZUX)UX*S[\ U_#\SP/]T,ZZT)UX*SZ[ [^#\RR/SR,ZZ\)UU*SY] U^#\ZU/SQ,ZR])T[*SUX UZ#\SW/\V,Z[_)UU*[Z)TX*SZS ZR#\\R/]T,ZTY)TZ*P]X UR#\\V/\W,ZS^)Z\*SUZ Z]#\\Z/]Z,ZR_)U]*SU[ Z^#\SQ/\Q,Z[X)Z^*ST_ Z\#\SW/][,ZQX)UZ*SZ^ ZY#\\[/\R,ZU])U^*P]] T[#\SQ/SV,ZU[)U_*S\S ZS#\YS/SU,ZST)U^*S]Z [\#\XR/S[,ZUX)UX*SUR ZS#TR [\#\\[/\S,ZUZ)T[*S[] [\#\ST/S[,ZZ^)UX*S]] Z_#\SQ/SP,ZUX)TX*SZS ZR#\RT/SW,ZU[)U[*S[R [S#\SU/SU,ZVT)Z_*SZ_ Z[#\\W/\Z,YR\)ZZ*SX[ UX#\RQ/SP,ZZ\)Z\*SZX ZY#\XU/\T,ZTU)U^*ST] UZ#_[P/ST,ZZ^)TT*ST[ U^#\RT/ST,ZU])TZ*S[] [S#_[[/SZ,ZZU)U_*SUY UZ#\YU/SU,ZU[)UZ*SZY [S#\]U/\R,ZZX)U\*SZY ZX#\ZV/\Q,Z[[)ZU*SUX ZY#\]U/]Z,ZZX)ZU*ST[ UY#\[V/\P,ZUY)UX*STZ U\#\]P/]W,ZZ])T[*S^Y [^#\RS/SR,ZU^)U^*SU^ U_#\Y[/]Z,ZUX)Z]*SUY U_#\S[/SV,Z[[)Z]*S_X ZY#\XQ/SQ,ZZ\)Z^*ST^ Z^#\\[/]Z,ZUT)TX*S\R ZR#\SW/SV,ZUX)TX*SZ] Z\#\RS/SR,ZU])U]*SU_ UX#\]Z/]Z,ZWZ)[]*SZ[ []#\]Q/]T,Z[T)ZX*S^R ZY#\SR/][,ZUX)UX*SZZ Z[#\XR/ST,ZZ\)UY*SZY ZZ#\RQ/\P,ZP^)Z_*S[S [S#\\Z/\U,ZZZ)ZU*SU_ ZX#\\T/\T,ZZZ)Z[*SZ^ Z^#\\Q/RR,Z[Z)Z\*SUZ [\#\\U/\P,Z[[)Z[*SU_ UZ#\YT/]W,ZT[)T[*SZ\ Z]#\\[/SR,Z[_)Z\*S[R [R#\SS/SR,ZU])U]*SZY UR#_[V/SZ,ZZ])T[*STX US#\SU/\U,ZUY)U\*S\Y []#\XV/SZ,ZTU)U^*SU\ ZY#\RV/\Z,ZUT)TX*STY U\#\RU/SU,ZUU)UX*SU\ US#\\V/\R,ZZ\)ZY*ST] UY#\YQ/SQ,ZTX)U]*P]Y U\#_[Q/SU,YR\)ZZ*SU^ U[#\SV/\V,ZU])TZ*SZ[ [S#\RT/SZ,ZZU)UZ*SU^ Z_#_[R/ST,ZSU)UU*SUR T[#\SP/\Z,ZTX)TU*SUS Z_#\_T/\[,ZUU)TZ*SU_ U_#\RR/S[,ZPT)ZU*S\_ ZX#\\[/\Z,ZZZ)UZ*SZ\ Z\#\_T/SU,ZU^)TU*SU_ UY#\[S/][,YRY)ZU*P]X UY#\S[/\U,ZT[)TX*S^Z Z[#\YZ/]U,ZQ^)Z^*S\_ UY#\SU/\S,ZUU)UY*SUR US#\SU/\U,ZP])ZU*SZY ZY#\SQ/SP,ZUT)Z]*STR US#\\P/\P,ZZX)ZY*SUR UR#\]U/SV,YR[)[]*ST^ UZ#\RQ/SZ,ZZU)UU*STX T[#\_V/SQ,ZZ_)ZZ*P][ U_#\SW/\V,ZZU)UU*P]_ U\#\\Z/][,ZU])U_*SU[ ZR#\SZ/\V,ZSU)UU*SZ\ Z\#\SV/SQ,ZUZ)UU*STS U\#\SQ/SQ,ZU^)U_*S[^ [^#\^U/\V,Z[^)UZ*SU\ ZX#\\T/\S,ZUZ)TZ*SU] UX#\ZW/\V,ZUZ)U[*SZ_ []#\SV/][,ZT[)TX*SUS UX#\\Z/\T,ZS^)Z\*SUY []#\ST/]W,ZUT)TZ*SZS Z\#\YT/]W,ZQZ)U[*S^] U^#\[W/\Q,ZZ^)TZ*SUR U^#\\P/\S,Z[Y)ZY*S\Z ZR#\\S/\S,Z[\)[]*S[\ [S#\R[/SZ,ZT[)T[*SU\ U]#\SR/SR,ZU^)[]*ST^ ZR#\RR/\T,Z[])ZX*SU[ Z[#\SQ/SR,ZVT)ZU*SZR ZR#\RS/RR,ZTZ)TU*STS U\#\RR/RR,Z[])ZT*SU^ U^#\]R/\U,YRY)ZU*SU_ Z[#\RW/RR,ZUX)TX*SZ[ [\#\_V/SQ,ZVZ)Z[*S_Y US#_[S/SW,Z[\)UZ*STZ Z_#\SW/SV,ZRZ)U^*S[_ [\#\SR/\R,ZU^)U^*S\_ UY#\RW/\[,YR^)ZT*SUR ZY#\\U/\T,ZR_)U]*SUX ZY#\SU/\Q,ZRY)U_*SZR Z\#\\Q/\T,ZZX)UZ*SU^ Z[#\S[/SZ,RZ/]T,ZU])TT*SZR [R#\RR/RR,ZVY)ZX*P]Z U\#\S[/SZ,ZZT)U^*SU_ [\#\RQ/\[,ZZX)UX*[Z)TX*S[S [S#\\T/\W,ZTX)T[*P][ UR#\\Q/\Q,ZU\)U]*SUR UR#\^S/]Z,Z[\)UX*STZ Z\#\RR/SW,ZZY)UY*SU[ Z\#\Z[/SU,ZZY)Z^*SZ^ [^#\S[/S[,ZVU)ZT*ST[ UY#_[R/S[,ZU[)UZ*SZR UY#\SP/\V,ZRT)UZ*SU[ Z]#\SV/\Q,ZZ[)UX*SZX []#\_U/ST,ZTT)TZ*SUY [^#\RV/SV,ZU_)U^*P]] T[#\SP/\U,ZZX)UY*SZ^ [^#\YZ/SZ,ZTU)TZ*P]Z UX#\RR/S[,Z[U)ZU*ST^ ZR#\YQ/\[,ZUT)U\*SUZ Z]#\S[/\[,ZU\)U]*S_S U\#\S[/SS,Z[\)Z]*S[_ [^#\]W/]Z,ZZ[)UU*S]\ Z^#\RQ/SZ,ZZU)UU*SUX UZ#\RZ/SU,ZQZ)U[*S[\ [\#\SP/SS,ZUT)Z\*SUS ZZ#\\V/\S,ZQY)ZU*ST[ U\#\]Z/]U,YRY)ZU*SZZ []#\SR/\R,Z[\)ZT*SZS [\#\YR/SR,ZUY)UT*SZ] [\#\]T/]W,ZUT)U]*SU_ ZX#\\Z/\Q,YRX)Z^*STZ T[#\ZS/\S,ZUT)ZY*SUS US#\\R/\P,YR\)Z[*S_\ UX#\YP/SZ,ZTZ)UX*S^Z UY#\_S/RR,ZV^)ZT*S]] ZY#\ZT/\P,ZST)U]*SY[ U_#\XT/SP,ZS])T[*S_[ Z[#\XR/S[,ZS])T[*S[^ Z[#\RP/SQ,ZTT)TU*SU^ Z]#\\T/]W,ZUZ)U_*SUR [\#\SQ/SP,ZRU)TU*SZX ZS#\S[/S[,ZTT)U\*STR U_#\ZQ/][,R[/]W,ZUZ)ZX*S^Z UY#\YV/][,ZST)TT*S_Z U\#\ZR/]T,ZP])U\*SY] UR#\XP/SR,ZP\)UZ*S^\ US#\[[/]Z,ZRZ)T[*SZ] ZZ#\RR/SZ,ZR^)U\*SZ\ ZY#\\U/]U,ZUU)U[*SU[ [R#\XQ/SU,Z[[)Z[*SUZ U_#\RS/SP,ZZ\)Z]*SYR US#\YZ/]U,ZTT)UY*SUY ZX#\\R/][,ZZ_)U^*SZ\ []#\SS/\T,Z[X)U^*SU^ U_#\ZV/\V,ZUZ)Z_*S[] []#\\P/\V,ZZ^)TU*S_[ Z]#\[V/\R,ZUY)Z_*S^Z UY#\Y[/\W,ZP^)TT*SZZ ZR#\XQ/SV,ZQT)ZX*SYY T[#\]T/\V,ZPY)UX*SY] UR#\YS/\P,ZWZ)TX*S^Y UX#\X[/SQ,ZQY)Z_*SZ^ UX#\XU/SZ,ZV^)ZT*S\^ [^#\YV/RR,ZP\)UZ*S^Z UZ#\XS/SP,ZV_)[]*S_] UY#\XU/SZ,ZPU)ZZ*P]X U\#\SZ/SV,ZZZ)Z[*SUX ZX#\YR/SZ,Z[T)Z]*S[R [^#\RS/ST,ZUZ)TT*SZ^ Z_#\ZQ/SS,ZTY)TT*SUS ZR#\\S/\R,Z[])Z\*SU[ [R#\\V/][,YRU)Z[*SU] U^#\YS/SS,ZT])TX*SUR UR#\SZ/RR,ZZ[)U\*S_] UY#\[S/]U,ZZ\)ZT*S^Z UY#\XW/SQ,ZV^)ZU*SXS []#\YZ/\[,ZPX)U^*S^R UY#\]T/\V,ZPZ)UU*S_[ [S#\YR/]T,ZTY)U_*S_Z ZY#\YS/\R,ZQZ)ZT*S]Y [S#\ZR/]T,ZPT)UT*S\] [^#\YZ/\[,ZS[)U_*S_] Z^#\XR/S[,ZZT)ZT*SZ\ []#\YP/RR,ZTU)TZ*STY UY#\SS/SS,ZS])UU*SUR US#\SS/\S,ZT[)T[*S\] U_#\SP/SS,Z[U)ZU*SU_ U_#\XU/\Z,ZZU)ZU*SUX UY#\]Q/]W,YRY)ZZ*SZ^ ZY#\ZZ/\P,ZZ])TX*STZ T[#\S[/\Q,ZUY)U]*ST_ UX#\SZ/\U,ZZ])U^*S\\ Z\#\SU/SQ,YR\)[]*SUS Z\#\\P/]W,ZQ^)ZT*SZY Z\#\SP/\Q,ZZ])UT*STS UR#\SR/][,ZZT)ZY*P\Z UR#\\R/][,ZRT)TT*S[Y [\#\SV/SV,ZTT)U\*STR U_#\Z[/\W,ZPY)[]*S[S Z]#\XP/SQ,ZPU)UX*S_Y ZX#\YV/RR,ZST)UX*S_] Z]#\_R/SZ,ZV\)ZT*S\_ Z[#\YW/\T,ZSU)UZ*S\Z Z[#T\ U\!]==],
+            "kbm"
+        )
+    )
+    local U = bit and bit.bxor or bit32.bxor
+    local h = math.floor
+    local n = string.gsub
+    local u = string.char
+    local n = {}
+    local b = function(o)
+        while true do
+            local e = 0
+            if e == 0 then
+                if #n == 0 then
+                    for Z = 0, 255 do
+                        while true do
+                            local e = 0
+                            if e == 0 then
+                                n[Z] = u(Z)
+                                e = 1
+                                break
+                            end
+                            if e == 1 then
+                                break
+                            end
+                        end
+                    end
+                end
+                e = 1
+            end
+            if e == 1 then
+                return n[o] or u(o)
+            end
+            if e == 2 then
+                break
+            end
+        end
+    end
+    local w = string.byte
+    local c = tonumber
+    local n = {}
+    local X = function(Z, ...)
+        while true do
+            local e = 0
+            local o = ""
+            if e == 0 then
+                for e = 1, #{...} do
+                    o = o .. ({...})[e]
+                end
+                e = 1
+            end
+            if e == 1 then
+                if (n[Z] or {})[o] then
+                    return n[Z][o]
+                end
+                e = 2
+            end
+            if e == 2 then
+                n[Z] = n or {}
+                e = 3
+            end
+            if e == 3 then
+                n[Z][o] = Z(...)
+                e = 4
+            end
+            if e == 4 then
+                return n[Z][o]
+            end
+            if e == 6 then
+                break
+            end
+            local e = ""
+        end
+    end
+    local function p(o, S, t)
+        while true do
+            local n = 0
+            if n == 0 then
+                if not o or not S then
+                    return o
+                end
+                n = 1
+            end
+            local Z = ""
+            if n == 1 then
+                for e in o:gmatch(e(i[9])) do
+                    local e = w(e)
+                    local e = U(e, S)
+                    Z = Z .. b(h(e))
+                end
+                n = 2
+            end
+            if n == 2 then
+                if t == 2 then
+                    Z = c(Z)
+                elseif t == 3 then
+                    while true do
+                        local n = 0
+                        if n == 0 then
+                            Z = Z == e(i[10]) and true or false
+                            n = 1
+                            break
+                        end
+                        if n == 1 then
+                            break
+                        end
+                    end
+                end
+                n = 3
+            end
+            if n == 3 then
+                return Z
+            end
+            if n == 5 then
+                break
+            end
+            local e = ""
+        end
+    end
+    local n = getfenv or function()
+            while true do
+                local e = 0
+                if e == 0 then
+                    return _ENV
+                end
+                if e == 1 then
+                    break
+                end
+            end
+        end
+    n()[X(p, e(i[13]), 161, 1)](e(i[15]))()
+    local function U(o, e, Z)
+        while true do
+            local n = 0
+            if n == 0 then
+                while true do
+                    local n = 0
+                    if n == 0 then
+                        if Z then
+                            local e = o / 2 ^ (e - 1) % 2 ^ (Z - 1 - (e - 1) + 1)
+                            return e - e % 1
+                        else
+                            while true do
+                                local n = 0
+                                if n == 0 then
+                                    while true do
+                                        local Z = 0
+                                        local n = 2 ^ (e - 1)
+                                        if Z == 0 then
+                                            return o % (n + n) >= n and 1 or 0
+                                        end
+                                        if Z == 2 then
+                                            break
+                                        end
+                                        local e = 2 ^ (e - 1)
+                                    end
+                                    n = 1
+                                    break
+                                end
+                                if n == 1 then
+                                    break
+                                end
+                            end
+                        end
+                        n = 1
+                        break
+                    end
+                    if n == 1 then
+                        break
+                    end
+                end
+                n = 1
+                break
+            end
+            if n == 1 then
+                break
+            end
+        end
+    end
+    local n = 1
+    local function i()
+        while true do
+            local U = 0
+            if U == 0 then
+                while true do
+                    local e = 0
+                    local i, o, S, t = l(d, n, n + 3)
+                    if e == 0 then
+                        i = Z(i, 171)
+                        e = 1
+                    end
+                    if e == 1 then
+                        o = Z(o, 171)
+                        e = 2
+                    end
+                    if e == 2 then
+                        S = Z(S, 171)
+                        e = 3
+                    end
+                    if e == 3 then
+                        t = Z(t, 171)
+                        e = 4
+                    end
+                    if e == 4 then
+                        n = n + 4
+                        e = 5
+                    end
+                    if e == 5 then
+                        return t * 16777216 + S * 65536 + o * 256 + i
+                    end
+                    if e == 7 then
+                        break
+                    end
+                    local e, e, e, e = l(d, n, n + 3)
+                end
+                U = 1
+                break
+            end
+            if U == 1 then
+                break
+            end
+        end
+    end
+    local function h()
+        while true do
+            local o = 0
+            if o == 0 then
+                while true do
+                    local e = 0
+                    local o = Z(l(d, n, n), 171)
+                    if e == 0 then
+                        n = n + 1
+                        e = 1
+                    end
+                    if e == 1 then
+                        return o
+                    end
+                    if e == 3 then
+                        break
+                    end
+                    local e = Z(l(d, n, n), 171)
+                end
+                o = 1
+                break
+            end
+            if o == 1 then
+                break
+            end
+        end
+    end
+    local function c()
+        while true do
+            local o = 0
+            if o == 0 then
+                while true do
+                    local e = 0
+                    local S, o = l(d, n, n + 2)
+                    if e == 0 then
+                        S = Z(S, 171)
+                        e = 1
+                    end
+                    if e == 1 then
+                        o = Z(o, 171)
+                        e = 2
+                    end
+                    if e == 2 then
+                        n = n + 2
+                        e = 3
+                    end
+                    if e == 3 then
+                        return o * 256 + S
+                    end
+                    if e == 5 then
+                        break
+                    end
+                    local e, e = l(d, n, n + 2)
+                end
+                o = 1
+                break
+            end
+            if o == 1 then
+                break
+            end
+        end
+    end
+    local function X()
+        while true do
+            local t = 0
+            if t == 0 then
+                while true do
+                    local Z = 0
+                    local n = i()
+                    local e = i()
+                    local t = 1
+                    local S = U(e, 1, 20) * 2 ^ 32 + n
+                    local o = U(e, 21, 31)
+                    local n = (-1) ^ U(e, 32)
+                    if Z == 0 then
+                        if o == 0 then
+                            if S == 0 then
+                                return n * 0
+                            else
+                                while true do
+                                    local n = 0
+                                    if n == 0 then
+                                        while true do
+                                            local e = 0
+                                            if e == 0 then
+                                                o = 1
+                                                e = 1
+                                            end
+                                            if e == 1 then
+                                                t = 0
+                                                e = 2
+                                                break
+                                            end
+                                            if e == 2 then
+                                                break
+                                            end
+                                        end
+                                        n = 1
+                                        break
+                                    end
+                                    if n == 1 then
+                                        break
+                                    end
+                                end
+                            end
+                        elseif o == 2047 then
+                            while true do
+                                local e = 0
+                                if e == 0 then
+                                    while true do
+                                        local e = 0
+                                        if e == 0 then
+                                            return S == 0 and n * 1 / 0 or n * 0 / 0
+                                        end
+                                        if e == 1 then
+                                            break
+                                        end
+                                    end
+                                    e = 1
+                                    break
+                                end
+                                if e == 1 then
+                                    break
+                                end
+                            end
+                        end
+                        Z = 1
+                    end
+                    if Z == 1 then
+                        return Y(n, o - 1023) * (t + S / 2 ^ 52)
+                    end
+                    if Z == 8 then
+                        break
+                    end
+                    local n = i()
+                    local e = i()
+                    local Z = 1
+                    local n = U(e, 1, 20) * 2 ^ 32 + n
+                    local n = U(e, 21, 31)
+                    local e = (-1) ^ U(e, 32)
+                end
+                t = 1
+                break
+            end
+            if t == 1 then
+                break
+            end
+        end
+    end
+    local b = i
+    local function Y(o)
+        while true do
+            local S = 0
+            if S == 0 then
+                while true do
+                    local e = 0
+                    local S
+                    if e == 0 then
+                        if not o then
+                            o = b()
+                            if o == 0 then
+                                return ""
+                            end
+                        end
+                        e = 1
+                    end
+                    if e == 1 then
+                        S = r(d, n, n + o - 1)
+                        e = 2
+                    end
+                    if e == 2 then
+                        n = n + o
+                        e = 3
+                    end
+                    local o = {}
+                    if e == 3 then
+                        for n = 1, #S do
+                            while true do
+                                local e = 0
+                                if e == 0 then
+                                    o[n] = R(Z(l(r(S, n, n)), 171))
+                                    e = 1
+                                    break
+                                end
+                                if e == 1 then
+                                    break
+                                end
+                            end
+                        end
+                        e = 4
+                    end
+                    if e == 4 then
+                        return _(o)
+                    end
+                    if e == 7 then
+                        break
+                    end
+                    local e
+                    local e = {}
+                end
+                S = 1
+                break
+            end
+            if S == 1 then
+                break
+            end
+        end
+    end
+    local n = i
+    local function R(...)
+        return {...}, s("#", ...)
+    end
+    local function r()
+        local n = {}
+        local u = function(e)
+            if #n == 0 then
+                for e = 0, 255 do
+                    n[e] = u(e)
+                end
+            end
+            return n[e] or u(e)
+        end
+        local l = tonumber
+        local function d(t)
+            local S, Z, n = {}, {}, {}
+            for e in o(t, "([^C]+)") do
+                a(S, e)
+            end
+            for e, n in pairs(S) do
+                for n in o(n, "([^A*B]+)") do
+                    if not Z[e] then
+                        Z[e] = {}
+                    end
+                    a(Z[e], n)
+                end
+            end
+            for Z, S in pairs(Z) do
+                for e, o in pairs(S) do
+                    if S[e + 1] and not (o - S[e + 1] < 0) then
+                        if not n[Z] then
+                            n[Z] = {}
+                        end
+                        a(n[Z], u(o - S[e + 1]))
+                    end
+                end
+                if f(e(n[Z]), "%%b:%%") then
+                    for e in o(e(n[Z]), "([^%%b:%%]+)") do
+                        n[Z] = T(e, 1) == "true" and true or false
+                    end
+                elseif f(e(n[Z]), "%%n:%%") then
+                    for e in o(e(n[Z]), "([^%%n:%%]+)") do
+                        n[Z] = l(T(e, 1))
+                    end
+                end
+            end
+            return n
+        end
+        local n =
+            d(
+            "A126B89A197B87A143B85A118B81A123B75CA104B67A197B87A140B82A110B73A138B88A119B66A142B89CA106B69A196B86A124B66A104B67A130B81CA124B78CA114B77A177B67A140B82A126B89A121B71CA107B70A190B80A131B73A110B73A130B79CA203B87A203B89A202B85A170B69CA115B78A165B67A124B66A110B73A191B75A204B90A198B81A171B70CA121B84A182B84A146B88A112B75A182B80A165B68A177B69A189B74A166B65CA259B73CA107B70A182B72A140B82A114B77A132B83A131B80A122B65CA284B73A291B78A294B84A277B83CA106B69A176B66A133B75A107B70A136B87A126B72A136B81CA307B78CA105B68A196B86A130B72A109B72A131B81A131B82A134B83CA300B76CA103B66A180B70A146B88A107B70A126B76A127B79A139B83CA333B84A342B87A327B79A310B78CA126B89A180B70A129B71A114B77A134B85A136B84A122B73CA237B72CA117B80A177B67A131B73A110B73A130B81A141B89A145B88CA297B82CA120B83A184B74A137B79A107B70A125B75A138B87A124B75CA265B81CA118B81A197B87A145B87A111B74A114B65A124B73A142B88CA282B90A282B84A264B71A289B80CA112B75A196B86A143B85A109B72A124B75A129B73A123B75CA220B72CA113B76A188B78A142B84A109B72A118B69A123B69A127B75CA217B84CA124B87A194B84A144B86A125B88A138B89A122B66A138B89CA233B78A234B77A232B78A205B67CA116B79A200B90A145B87A119B82A126B76A127B76A124B67CA263B74CA322B82CA107B70A178B68A145B87A117B80A125B76A137B80A138B88CA245B88CA125B88A188B78A126B68A124B87A126B77A120B65A136B86CA290B65CA336B90CA102B65A185B75A148B90A117B80A129B80A137B80A122B65CA242B75CA118B81A189B79A131B73A118B81A115B66A125B72A123B75CA313B84A297B70A315B87A332B88CA126B89A184B74A133B75A115B78A117B68A137B85A128B75CA282B82CA110B73A179B69A130B72A103B66A140B90A132B80A146B90CA231B75CA311B84A294B65A296B70A321B79CA107B70A196B86A125B67A125B88A128B79A132B79A132B83CA230B84CA125B88A199B89A127B69A107B70A137B88A121B67A115B65CA253B81CA107B70A177B67A143B85A104B67A114B65A141B88A134B80CA226B84CA108B71A185B75A127B69A115B78A121B72A144B87A124B75CA245B84CA123B86A199B89A128B70A105B68A133B84A118B66A130B78CA325B74CA127B90A183B73A135B77A125B88A137B87A123B75A120B70CA103B66A190B80A135B77A124B87A134B84A133B82A117B69CA121B84A185B75A128B70A122B85A116B67A135B80A136B85CA285B83CA103B66A175B65A126B68A115B78A117B67A123B70A119B70CA200B71CA118B81A198B88A148B90A126B89A130B81A130B75A132B75CA112B75A194B84A131B73A106B69A122B73A141B89A115B65CA286B78CA109B72A197B87A139B81A117B80A117B67A140B90A138B85CA245B71CA107B70A177B67A137B79A117B80A119B70A122B69A134B77C"
+        )
+        local d = bit and bit.bxor or bit32.bxor
+        local l = math.floor
+        local Z = string.gsub
+        local o = string.char
+        local Z = {}
+        local a = function(n)
+            if #Z == 0 then
+                for e = 0, 255 do
+                    Z[e] = o(e)
+                end
+            end
+            return Z[n] or o(n)
+        end
+        local u = string.byte
+        local f = tonumber
+        local Z = {}
+        local o = function(e, ...)
+            local n = ""
+            for e = 1, #{...} do
+                n = n .. ({...})[e]
+            end
+            if (Z[e] or {})[n] then
+                return Z[e][n]
+            end
+            Z[e] = Z or {}
+            Z[e][n] = e(...)
+            return Z[e][n]
+        end
+        local function Z(o, t, S)
+            if not o or not t then
+                return o
+            end
+            local Z = ""
+            for e in o:gmatch(e(n[4])) do
+                local e = u(e)
+                local e = d(e, t)
+                Z = Z .. a(l(e))
+            end
+            if S == 2 then
+                Z = f(Z)
+            elseif S == 3 then
+                Z = Z == e(n[7]) and true or false
+            end
+            return Z
+        end
+        local a = {}
+        local u = {}
+        local l = {}
+        local d = {a, u, nil, l}
+        local f = i()
+        local l = {}
+        for d = o(Z, e(n[10]), 139, 2), f do
+            while o(Z, e(n[12]), 167, 3) do
+                local U = o(Z, e(n[14]), 213, 2)
+                if U == o(Z, e(n[16]), 208, 2) then
+                    while o(Z, e(n[18]), 141, 3) do
+                        local S = o(Z, e(n[20]), 149, 2)
+                        local i = h()
+                        local t
+                        if S == o(Z, e(n[22]), 231, 2) then
+                            if i == 3 then
+                                t = h() ~= o(Z, e(n[24]), 136, 2)
+                            elseif i == 2 then
+                                while o(Z, e(n[26]), 180, 3) do
+                                    local S = o(Z, e(n[28]), 164, 2)
+                                    if S == o(Z, e(n[30]), 181, 2) then
+                                        while o(Z, e(n[32]), 239, 3) do
+                                            local S = o(Z, e(n[34]), 141, 2)
+                                            if S == o(Z, e(n[35]), 192, 2) then
+                                                t = X()
+                                                S = o(Z, e(n[37]), 172, 2)
+                                                break
+                                            end
+                                            if S == o(Z, e(n[39]), 208, 2) then
+                                                break
+                                            end
+                                        end
+                                        S = o(Z, e(n[40]), 199, 2)
+                                        break
+                                    end
+                                    if S == o(Z, e(n[42]), 150, 2) then
+                                        break
+                                    end
+                                end
+                            elseif i == 1 then
+                                while o(Z, e(n[44]), 145, 3) do
+                                    local i = o(Z, e(n[46]), 248, 2)
+                                    if i == o(Z, e(n[48]), 172, 2) then
+                                        while o(Z, e(n[49]), 151, 3) do
+                                            local S = o(Z, e(n[51]), 162, 2)
+                                            if S == o(Z, e(n[53]), 156, 2) then
+                                                t = Y()
+                                                S = o(Z, e(n[55]), 191, 2)
+                                                break
+                                            end
+                                            if S == o(Z, e(n[57]), 144, 2) then
+                                                break
+                                            end
+                                        end
+                                        i = o(Z, e(n[59]), 202, 2)
+                                        break
+                                    end
+                                    if i == o(Z, e(n[22]), 230, 2) then
+                                        break
+                                    end
+                                end
+                            end
+                            S = o(Z, e(n[48]), 173, 2)
+                        end
+                        if S == o(Z, e(n[63]), 251, 2) then
+                            l[d] = t
+                            S = o(Z, e(n[65]), 179, 2)
+                            break
+                        end
+                        if S == o(Z, e(n[10]), 142, 2) then
+                            break
+                        end
+                        local e = h()
+                        local e
+                    end
+                    U = o(Z, e(n[68]), 225, 2)
+                    break
+                end
+                if U == o(Z, e(n[70]), 159, 2) then
+                    break
+                end
+            end
+        end
+        for e = 1, i() do
+            u[e - 1] = r()
+        end
+        d[3] = h()
+        for d = 1, i() do
+            while true do
+                local Z = 0
+                if Z == 0 then
+                    while true do
+                        local Z = 0
+                        local e = h()
+                        if Z == 0 then
+                            if U(e, 1, 1) == 0 then
+                                local n = U(e, 2, 3)
+                                local o = U(e, 4, 6)
+                                local e = {c(), c(), nil, nil}
+                                if n == 0 then
+                                    e[(S)] = c()
+                                    e[(4)] = c()
+                                elseif n == 1 then
+                                    while true do
+                                        local n = 0
+                                        if n == 0 then
+                                            while true do
+                                                local n = 0
+                                                if n == 0 then
+                                                    e[(S)] = i()
+                                                    n = 1
+                                                    break
+                                                end
+                                                if n == 1 then
+                                                    break
+                                                end
+                                            end
+                                            n = 1
+                                            break
+                                        end
+                                        if n == 1 then
+                                            break
+                                        end
+                                    end
+                                elseif n == 2 then
+                                    while true do
+                                        local n = 0
+                                        if n == 0 then
+                                            while true do
+                                                local n = 0
+                                                if n == 0 then
+                                                    e[(S)] = i() - 2 ^ 16
+                                                    n = 1
+                                                    break
+                                                end
+                                                if n == 1 then
+                                                    break
+                                                end
+                                            end
+                                            n = 1
+                                            break
+                                        end
+                                        if n == 1 then
+                                            break
+                                        end
+                                    end
+                                elseif n == 3 then
+                                    while true do
+                                        local Z = 0
+                                        if Z == 0 then
+                                            while true do
+                                                local n = 0
+                                                if n == 0 then
+                                                    e[(S)] = i() - 2 ^ 16
+                                                    n = 1
+                                                end
+                                                if n == 1 then
+                                                    e[(4)] = c()
+                                                    n = 2
+                                                    break
+                                                end
+                                                if n == 2 then
+                                                    break
+                                                end
+                                            end
+                                            Z = 1
+                                            break
+                                        end
+                                        if Z == 1 then
+                                            break
+                                        end
+                                    end
+                                end
+                                if U(o, 1, 1) == 1 then
+                                    e[(t)] = l[e[(t)]]
+                                end
+                                if U(o, 2, 2) == 1 then
+                                    e[(S)] = l[e[(S)]]
+                                end
+                                if U(o, 3, 3) == 1 then
+                                    e[(4)] = l[e[(4)]]
+                                end
+                                a[d] = e
+                            end
+                            Z = 1
+                            break
+                        end
+                        if Z == 2 then
+                            break
+                        end
+                        local e = h()
+                    end
+                    Z = 1
+                    break
+                end
+                if Z == 1 then
+                    break
+                end
+            end
+        end
+        return d
+    end
+    local function d(e, n, o)
+        local i = e[1]
+        local l = e[2]
+        local U = e[3]
+        return function(...)
+            local r = bit and bit.bxor or bit32.bxor
+            local a = math.floor
+            local e = string.gsub
+            local Z = string.char
+            local e = {}
+            local h = function(n)
+                if #e == (#{}) then
+                    for n = (#{}), (#{{"synapse xen v2"}, not true, not true, not nil, 1499677392, not nil, 5611187372} +
+                        248) do
+                        e[n] = Z(n)
+                    end
+                end
+                return e[n] or Z(n)
+            end
+            local c = string.byte
+            local u = tonumber
+            local Z = {}
+            local e = function(n, ...)
+                local e = ""
+                for n = (#{function()
+                    end}), #{...} do
+                    e = e .. ({...})[n]
+                end
+                if (Z[n] or {})[e] then
+                    return Z[n][e]
+                end
+                Z[n] = Z or {}
+                Z[n][e] = n(...)
+                return Z[n][e]
+            end
+            local function n(n, Z, o)
+                if not n or not Z then
+                    return n
+                end
+                local e = ""
+                for n in n:gmatch(".") do
+                    local n = c(n)
+                    local n = r(n, Z)
+                    e = e .. h(a(n))
+                end
+                if o == (#{{"I wonder what this function does"}, function()
+                            end}) then
+                    e = u(e)
+                elseif o == (#{1913911611, [[Luraph is cool ig]], [[Oh boy you dumped the deserialize function]]}) then
+                    e = e == "true" and true or false
+                end
+                return e
+            end
+            local u = i
+            local a = l
+            local U = U
+            local Z = R
+            local i =
+                e(
+                n,
+                "\148",
+                (#{"Oh boy you dumped the deserialize function", 7369132981, not nil, "synapse xen v2", function()
+                    end, not true} + 159),
+                (#{not nil, function()
+                    end})
+            )
+            local Z =
+                -e(
+                n,
+                "\155",
+                (#{function()
+                    end, 1999679399, [[synapse xen v2]], "Luraph is cool ig", not true, 4820876372, 5162627062, "Luraph is cool ig"} +
+                    162),
+                (#{not false, 1680739490})
+            )
+            local c = {}
+            local r = {...}
+            local h =
+                s(
+                e(
+                    n,
+                    "\131",
+                    (#{function()
+                        end, not false, 3783925025, 8059184928} + 156),
+                    (#{[[Luraph is cool ig]]})
+                ),
+                ...
+            ) -
+                e(
+                    n,
+                    "\137",
+                    (#{"Luraph is cool ig", not false, not nil, not false, not true} + 179),
+                    (#{5267786383, {"I wonder what this function does"}})
+                )
+            local Z = {}
+            local Z = {}
+            for S = e(
+                n,
+                "\250",
+                (#{
+                    "synapse xen v2",
+                    "I wonder what this function does",
+                    [[I wonder what this function does]],
+                    8392360536
+                } + 198),
+                (#{{"I wonder what this function does"}, "Oh boy you dumped the deserialize function"})
+            ), h do
+                while e(
+                    n,
+                    "\167\161\166\182",
+                    (#{
+                        {"I wonder what this function does"},
+                        not nil,
+                        not true,
+                        "I wonder what this function does",
+                        not nil
+                    } + 206),
+                    (#{"synapse xen v2", not nil, not nil})
+                ) do
+                    local t =
+                        e(
+                        n,
+                        "\223",
+                        (#{function()
+                            end, [[Luraph is cool ig]], not nil, not false} + 235),
+                        (#{not nil, 2281584602})
+                    )
+                    if
+                        t ==
+                            e(
+                                n,
+                                "\203",
+                                (#{
+                                    [[Luraph is cool ig]],
+                                    not true,
+                                    "I wonder what this function does",
+                                    not false,
+                                    not false
+                                } + 246),
+                                (#{"Oh boy you dumped the deserialize function", not nil})
+                            )
+                     then
+                        while e(
+                            n,
+                            "\167\161\166\182",
+                            (#{
+                                "Luraph is cool ig",
+                                "synapse xen v2",
+                                not nil,
+                                "I wonder what this function does",
+                                not true,
+                                {"Oh boy you dumped the deserialize function"},
+                                not false,
+                                [[Oh boy you dumped the deserialize function]]
+                            } + 203),
+                            (#{{"synapse xen v2"}, "Luraph is cool ig", not nil})
+                        ) do
+                            local t =
+                                e(
+                                n,
+                                "\227",
+                                (#{{"Luraph is cool ig"}, [[synapse xen v2]], function()
+                                    end} + 208),
+                                (#{"Luraph is cool ig", "synapse xen v2"})
+                            )
+                            if
+                                t ==
+                                    e(
+                                        n,
+                                        "\147",
+                                        (#{
+                                            662732140,
+                                            4191914510,
+                                            function()
+                                            end,
+                                            8113119989,
+                                            "Luraph is cool ig",
+                                            not true,
+                                            [[Oh boy you dumped the deserialize function]],
+                                            "Oh boy you dumped the deserialize function"
+                                        } + 155),
+                                        (#{not nil, 2088252567})
+                                    )
+                             then
+                                while e(
+                                    n,
+                                    "\206\200\207\223",
+                                    (#{
+                                        "synapse xen v2",
+                                        not false,
+                                        not true,
+                                        [[Luraph is cool ig]],
+                                        "I wonder what this function does"
+                                    } + 181),
+                                    (#{function()
+                                        end, not nil, not false})
+                                ) do
+                                    while e(
+                                        n,
+                                        "\158\152\159\143",
+                                        (#{
+                                            "I wonder what this function does",
+                                            not true,
+                                            "Luraph is cool ig",
+                                            {"synapse xen v2"},
+                                            not nil
+                                        } + 229),
+                                        (#{not true, "Oh boy you dumped the deserialize function", "synapse xen v2"})
+                                    ) do
+                                        local o =
+                                            e(
+                                            n,
+                                            "\194",
+                                            (#{not nil, not false, "Luraph is cool ig"} + 239),
+                                            (#{not true, not nil})
+                                        )
+                                        local l =
+                                            e(
+                                            n,
+                                            "\202",
+                                            (#{not true, not false, [[I wonder what this function does]], not nil} + 246),
+                                            (#{5850979051, "I wonder what this function does"})
+                                        )
+                                        if
+                                            o ==
+                                                e(
+                                                    n,
+                                                    "\193",
+                                                    (#{
+                                                        not nil,
+                                                        "Oh boy you dumped the deserialize function",
+                                                        3043849830,
+                                                        not false,
+                                                        "I wonder what this function does",
+                                                        [[Luraph is cool ig]],
+                                                        {"I wonder what this function does"}
+                                                    } + 234),
+                                                    (#{
+                                                        "Oh boy you dumped the deserialize function",
+                                                        {"I wonder what this function does"}
+                                                    })
+                                                )
+                                         then
+                                            if
+                                                l ==
+                                                    e(
+                                                        n,
+                                                        "\197",
+                                                        (#{not true, not false, not nil, "Luraph is cool ig"} + 241),
+                                                        (#{{"Oh boy you dumped the deserialize function"}, not nil})
+                                                    )
+                                             then
+                                                if S >= U then
+                                                    c[S - U] =
+                                                        r[
+                                                        S +
+                                                            e(
+                                                                n,
+                                                                "\242",
+                                                                (#{
+                                                                    [[Oh boy you dumped the deserialize function]],
+                                                                    not false,
+                                                                    not false,
+                                                                    function()
+                                                                    end,
+                                                                    not nil,
+                                                                    not true,
+                                                                    not false
+                                                                } + 188),
+                                                                (#{
+                                                                    not false,
+                                                                    "Oh boy you dumped the deserialize function"
+                                                                })
+                                                            )
+                                                    ]
+                                                else
+                                                    while e(
+                                                        n,
+                                                        "\247\241\246\230",
+                                                        (#{
+                                                            "I wonder what this function does",
+                                                            not nil,
+                                                            not nil,
+                                                            not nil,
+                                                            7098502785,
+                                                            not nil,
+                                                            not nil
+                                                        } + 124),
+                                                        (#{not false, "synapse xen v2", function()
+                                                            end})
+                                                    ) do
+                                                        local i =
+                                                            e(
+                                                            n,
+                                                            "\249",
+                                                            (#{
+                                                                "Luraph is cool ig",
+                                                                {"synapse xen v2"},
+                                                                "I wonder what this function does",
+                                                                {"Oh boy you dumped the deserialize function"},
+                                                                3672103442,
+                                                                6951020000,
+                                                                6723013991
+                                                            } + 194),
+                                                            (#{"synapse xen v2", {"synapse xen v2"}})
+                                                        )
+                                                        if
+                                                            i ==
+                                                                e(
+                                                                    n,
+                                                                    "\128",
+                                                                    (#{
+                                                                        "synapse xen v2",
+                                                                        "Oh boy you dumped the deserialize function",
+                                                                        function()
+                                                                        end,
+                                                                        "Luraph is cool ig"
+                                                                    } + 172),
+                                                                    (#{
+                                                                        [[I wonder what this function does]],
+                                                                        {"synapse xen v2"}
+                                                                    })
+                                                                )
+                                                         then
+                                                            while e(
+                                                                n,
+                                                                "\238\232\239\255",
+                                                                (#{
+                                                                    not false,
+                                                                    "Luraph is cool ig",
+                                                                    8232690687,
+                                                                    function()
+                                                                    end,
+                                                                    not nil,
+                                                                    not true,
+                                                                    2022300858,
+                                                                    "Luraph is cool ig"
+                                                                } + 146),
+                                                                (#{
+                                                                    "Luraph is cool ig",
+                                                                    "I wonder what this function does",
+                                                                    {"Luraph is cool ig"}
+                                                                })
+                                                            ) do
+                                                                local t =
+                                                                    e(
+                                                                    n,
+                                                                    "\206",
+                                                                    (#{
+                                                                        not false,
+                                                                        "Luraph is cool ig",
+                                                                        not nil,
+                                                                        not nil,
+                                                                        not true,
+                                                                        "I wonder what this function does"
+                                                                    } + 248),
+                                                                    (#{not true, not nil})
+                                                                )
+                                                                if
+                                                                    t ==
+                                                                        e(
+                                                                            n,
+                                                                            "\141",
+                                                                            (#{
+                                                                                not true,
+                                                                                not nil,
+                                                                                not false,
+                                                                                "Oh boy you dumped the deserialize function",
+                                                                                [[Luraph is cool ig]],
+                                                                                {"I wonder what this function does"},
+                                                                                "Luraph is cool ig"
+                                                                            } + 182),
+                                                                            (#{not false, "Luraph is cool ig"})
+                                                                        )
+                                                                 then
+                                                                    while e(
+                                                                        n,
+                                                                        "\194\196\195\211",
+                                                                        (#{
+                                                                            1055448724,
+                                                                            not nil,
+                                                                            "Oh boy you dumped the deserialize function",
+                                                                            not nil,
+                                                                            function()
+                                                                            end
+                                                                        } + 177),
+                                                                        (#{2487782899, not true, 4426980316})
+                                                                    ) do
+                                                                        while e(
+                                                                            n,
+                                                                            "\171\173\170\186",
+                                                                            (#{
+                                                                                not nil,
+                                                                                "I wonder what this function does",
+                                                                                {
+                                                                                    "Oh boy you dumped the deserialize function"
+                                                                                },
+                                                                                not nil,
+                                                                                "Luraph is cool ig",
+                                                                                {"synapse xen v2"}
+                                                                            } + 217),
+                                                                            (#{not nil, not true, "Luraph is cool ig"})
+                                                                        ) do
+                                                                            local o =
+                                                                                e(
+                                                                                n,
+                                                                                "\250",
+                                                                                (#{
+                                                                                    "Luraph is cool ig",
+                                                                                    {"Luraph is cool ig"},
+                                                                                    "Luraph is cool ig",
+                                                                                    4026935425,
+                                                                                    "Oh boy you dumped the deserialize function"
+                                                                                } + 197),
+                                                                                (#{function()
+                                                                                    end, "synapse xen v2"})
+                                                                            )
+                                                                            local t =
+                                                                                e(
+                                                                                n,
+                                                                                "\137",
+                                                                                (#{
+                                                                                    not nil,
+                                                                                    "I wonder what this function does",
+                                                                                    {"synapse xen v2"},
+                                                                                    not false,
+                                                                                    "Luraph is cool ig",
+                                                                                    function()
+                                                                                    end,
+                                                                                    {
+                                                                                        "Oh boy you dumped the deserialize function"
+                                                                                    }
+                                                                                } + 178),
+                                                                                (#{
+                                                                                    6722196927,
+                                                                                    [[Oh boy you dumped the deserialize function]]
+                                                                                })
+                                                                            )
+                                                                            if
+                                                                                o ==
+                                                                                    e(
+                                                                                        n,
+                                                                                        "\171",
+                                                                                        (#{not nil, function()
+                                                                                            end, 3308880227, "Luraph is cool ig", {
+                                                                                                "synapse xen v2"
+                                                                                            }, [[Luraph is cool ig]], function()
+                                                                                            end, "I wonder what this function does"} +
+                                                                                            147),
+                                                                                        (#{
+                                                                                            {
+                                                                                                "I wonder what this function does"
+                                                                                            },
+                                                                                            [[Luraph is cool ig]]
+                                                                                        })
+                                                                                    )
+                                                                             then
+                                                                                if
+                                                                                    t ==
+                                                                                        e(
+                                                                                            n,
+                                                                                            "\232",
+                                                                                            (#{
+                                                                                                "synapse xen v2",
+                                                                                                "Luraph is cool ig",
+                                                                                                not true,
+                                                                                                not false,
+                                                                                                function()
+                                                                                                end,
+                                                                                                "Oh boy you dumped the deserialize function"
+                                                                                            } + 210),
+                                                                                            (#{
+                                                                                                [[I wonder what this function does]],
+                                                                                                1865108085
+                                                                                            })
+                                                                                        )
+                                                                                 then
+                                                                                    Z[S] =
+                                                                                        r[
+                                                                                        S +
+                                                                                            e(
+                                                                                                n,
+                                                                                                "\192",
+                                                                                                (#{
+                                                                                                    not true,
+                                                                                                    "synapse xen v2",
+                                                                                                    2574533866,
+                                                                                                    function()
+                                                                                                    end
+                                                                                                } + 237),
+                                                                                                (#{
+                                                                                                    {
+                                                                                                        "I wonder what this function does"
+                                                                                                    },
+                                                                                                    3289772884
+                                                                                                })
+                                                                                            )
+                                                                                    ]
+                                                                                    t =
+                                                                                        e(
+                                                                                        n,
+                                                                                        "\142",
+                                                                                        (#{function()
+                                                                                            end, "synapse xen v2", [[Oh boy you dumped the deserialize function]], 7509596982, not nil} +
+                                                                                            186),
+                                                                                        (#{
+                                                                                            "Oh boy you dumped the deserialize function",
+                                                                                            function()
+                                                                                            end
+                                                                                        })
+                                                                                    )
+                                                                                    break
+                                                                                end
+                                                                                o =
+                                                                                    e(
+                                                                                    n,
+                                                                                    "\226",
+                                                                                    (#{
+                                                                                        {
+                                                                                            "I wonder what this function does"
+                                                                                        },
+                                                                                        "synapse xen v2",
+                                                                                        function()
+                                                                                        end,
+                                                                                        function()
+                                                                                        end
+                                                                                    } + 207),
+                                                                                    (#{not nil, not nil})
+                                                                                )
+                                                                            end
+                                                                            if
+                                                                                o ==
+                                                                                    e(
+                                                                                        n,
+                                                                                        "\241",
+                                                                                        (#{
+                                                                                            {"Luraph is cool ig"},
+                                                                                            "I wonder what this function does",
+                                                                                            {"Luraph is cool ig"},
+                                                                                            not nil,
+                                                                                            [[synapse xen v2]],
+                                                                                            function()
+                                                                                            end
+                                                                                        } + 186),
+                                                                                        (#{
+                                                                                            799596648,
+                                                                                            {"synapse xen v2"}
+                                                                                        })
+                                                                                    )
+                                                                             then
+                                                                                if
+                                                                                    t ==
+                                                                                        e(
+                                                                                            n,
+                                                                                            "\226",
+                                                                                            (#{
+                                                                                                not false,
+                                                                                                "Oh boy you dumped the deserialize function",
+                                                                                                function()
+                                                                                                end,
+                                                                                                function()
+                                                                                                end
+                                                                                            } + 207),
+                                                                                            (#{
+                                                                                                1966832156,
+                                                                                                {
+                                                                                                    "Oh boy you dumped the deserialize function"
+                                                                                                }
+                                                                                            })
+                                                                                        )
+                                                                                 then
+                                                                                    break
+                                                                                end
+                                                                                o =
+                                                                                    e(
+                                                                                    n,
+                                                                                    "\233",
+                                                                                    (#{
+                                                                                        not true,
+                                                                                        {"synapse xen v2"},
+                                                                                        "Luraph is cool ig"
+                                                                                    } + 216),
+                                                                                    (#{not nil, not false})
+                                                                                )
+                                                                                break
+                                                                            end
+                                                                            if
+                                                                                o ==
+                                                                                    e(
+                                                                                        n,
+                                                                                        "\236",
+                                                                                        (#{
+                                                                                            8843356215,
+                                                                                            not nil,
+                                                                                            not false,
+                                                                                            not true,
+                                                                                            "Oh boy you dumped the deserialize function",
+                                                                                            "Luraph is cool ig",
+                                                                                            [[Luraph is cool ig]]
+                                                                                        } + 216),
+                                                                                        (#{
+                                                                                            "Luraph is cool ig",
+                                                                                            not true
+                                                                                        })
+                                                                                    )
+                                                                             then
+                                                                                break
+                                                                             end
+                                                                      
+                                                                            local e =
+                                                                                e(
+                                                                                n,
+                                                                                "\255",
+                                                                                (#{
+                                                                                    not true,
+                                                                                    {"I wonder what this function does"},
+                                                                                    324038524,
+                                                                                    not nil,
+                                                                                    "Oh boy you dumped the deserialize function",
+                                                                                    not nil,
+                                                                                    not false
+                                                                                } + 200),
+                                                                                (#{
+                                                                                    {"I wonder what this function does"},
+                                                                                    not false
+                                                                                })
+                                                                            )
+                                                                        end
+                                                                    end
+                                                                    t =
+                                                                        e(
+                                                                        n,
+                                                                        "\156",
+                                                                        (#{function()
+                                                                            end, "I wonder what this function does", {
+                                                                                "Oh boy you dumped the deserialize function"
+                                                                            }} + 170),
+                                                                        (#{function()
+                                                                            end, 7700486114})
+                                                                    )
+                                                                    break
+                                                                end
+                                                                if
+                                                                    t ==
+                                                                        e(
+                                                                            n,
+                                                                            "\212",
+                                                                            (#{
+                                                                                "I wonder what this function does",
+                                                                                not false,
+                                                                                function()
+                                                                                end,
+                                                                                not true,
+                                                                                not true
+                                                                            } + 224),
+                                                                            (#{
+                                                                                {"I wonder what this function does"},
+                                                                                not false
+                                                                            })
+                                                                        )
+                                                                 then
+                                                                    break
+                                                                end
+                                                            end
+                                                            i =
+                                                                e(
+                                                                n,
+                                                                "\216",
+                                                                (#{
+                                                                    6485128828,
+                                                                    function()
+                                                                    end,
+                                                                    "Oh boy you dumped the deserialize function",
+                                                                    5564260963,
+                                                                    "Luraph is cool ig",
+                                                                    "Oh boy you dumped the deserialize function",
+                                                                    6414652993
+                                                                } + 226),
+                                                                (#{"synapse xen v2", function()
+                                                                    end})
+                                                            )
+                                                            break
+                                                        end
+                                                        if
+                                                            i ==
+                                                                e(
+                                                                    n,
+                                                                    "\182",
+                                                                    (#{function()
+                                                                        end, "Luraph is cool ig", not nil, not true, not nil, "synapse xen v2", function()
+                                                                        end} + 128),
+                                                                    (#{{"synapse xen v2"}, [[synapse xen v2]]})
+                                                                )
+                                                         then
+                                                            break
+                                                        end
+                                                    end
+                                                end
+                                                l =
+                                                    e(
+                                                    n,
+                                                    "\215",
+                                                    (#{
+                                                        [[synapse xen v2]],
+                                                        "Oh boy you dumped the deserialize function",
+                                                        "I wonder what this function does",
+                                                        "Luraph is cool ig",
+                                                        function()
+                                                        end
+                                                    } + 225),
+                                                    (#{[[I wonder what this function does]], not nil})
+                                                )
+                                                break
+                                            end
+                                            o =
+                                                e(
+                                                n,
+                                                "\141",
+                                                (#{
+                                                    {"I wonder what this function does"},
+                                                    [[I wonder what this function does]],
+                                                    "Luraph is cool ig",
+                                                    [[I wonder what this function does]],
+                                                    "I wonder what this function does",
+                                                    function()
+                                                    end,
+                                                    "Oh boy you dumped the deserialize function",
+                                                    {"Oh boy you dumped the deserialize function"}
+                                                } + 180),
+                                                (#{not nil, 4739366927})
+                                            )
+                                        end
+                                        if
+                                            o ==
+                                                e(
+                                                    n,
+                                                    "\189",
+                                                    (#{
+                                                        "Luraph is cool ig",
+                                                        {"Luraph is cool ig"},
+                                                        not nil,
+                                                        [[synapse xen v2]],
+                                                        4445240726,
+                                                        function()
+                                                        end,
+                                                        not true
+                                                    } + 133),
+                                                    (#{
+                                                        "I wonder what this function does",
+                                                        {"I wonder what this function does"}
+                                                    })
+                                                )
+                                         then
+                                            if
+                                                l ==
+                                                    e(
+                                                        n,
+                                                        "\207",
+                                                        (#{
+                                                            "Oh boy you dumped the deserialize function",
+                                                            {"synapse xen v2"},
+                                                            not true,
+                                                            "Oh boy you dumped the deserialize function",
+                                                            [[Oh boy you dumped the deserialize function]],
+                                                            "Oh boy you dumped the deserialize function",
+                                                            [[Luraph is cool ig]],
+                                                            "Oh boy you dumped the deserialize function"
+                                                        } + 246),
+                                                        (#{function()
+                                                            end, 2753968512})
+                                                    )
+                                             then
+                                                break
+                                            end
+                                            o =
+                                                e(
+                                                n,
+                                                "\234",
+                                                (#{not true, [[Oh boy you dumped the deserialize function]], function()
+                                                    end} + 213),
+                                                (#{"I wonder what this function does", function()
+                                                    end})
+                                            )
+                                            break
+                                        end
+                                        if
+                                            o ==
+                                                e(
+                                                    n,
+                                                    "\186",
+                                                    (#{
+                                                        not false,
+                                                        {"Oh boy you dumped the deserialize function"},
+                                                        [[Luraph is cool ig]],
+                                                        not true,
+                                                        {"Luraph is cool ig"},
+                                                        function()
+                                                        end,
+                                                        24403889
+                                                    } + 130),
+                                                    (#{
+                                                        "I wonder what this function does",
+                                                        {"I wonder what this function does"}
+                                                    })
+                                                )
+                                         then
+                                            break
+                                        end
+                                        local e =
+                                            e(
+                                            n,
+                                            "\240",
+                                            (#{
+                                                not nil,
+                                                [[Oh boy you dumped the deserialize function]],
+                                                {"synapse xen v2"},
+                                                function()
+                                                end,
+                                                "synapse xen v2",
+                                                function()
+                                                end,
+                                                not true
+                                            } + 185),
+                                            (#{not nil, {"Oh boy you dumped the deserialize function"}})
+                                        )
+                                    end
+                                end
+                                t =
+                                    e(
+                                    n,
+                                    "\160",
+                                    (#{not false, [[synapse xen v2]], 8959075367, "I wonder what this function does"} +
+                                        141),
+                                    (#{not true, "Luraph is cool ig"})
+                                )
+                                break
+                            end
+                            if
+                                t ==
+                                    e(
+                                        n,
+                                        "\161",
+                                        (#{
+                                            not nil,
+                                            8603000636,
+                                            not false,
+                                            "I wonder what this function does",
+                                            {"Luraph is cool ig"},
+                                            not false,
+                                            "Oh boy you dumped the deserialize function"
+                                        } + 137),
+                                        (#{not true, {"I wonder what this function does"}})
+                                    )
+                             then
+                                break
+                            end
+                        end
+                        t =
+                            e(
+                            n,
+                            "\147",
+                            (#{
+                                {"synapse xen v2"},
+                                [[I wonder what this function does]],
+                                5572522185,
+                                "I wonder what this function does"
+                            } + 158),
+                            (#{not true, function()
+                                end})
+                        )
+                        break
+                     end
+                 
+                    if
+                        t ==
+                            e(
+                                n,
+                                "\238",
+                                (#{
+                                    8342580517,
+                                    not false,
+                                    "Luraph is cool ig",
+                                    "Oh boy you dumped the deserialize function",
+                                    "I wonder what this function does",
+                                    function()
+                                    end
+                                } + 217),
+                                (#{{"Oh boy you dumped the deserialize function"}, function()
+                                    end})
+                            )
+                     then
+                        break
+                    end
+                end
+            end
+            local e = h - U + 1
+            local e
+            local n
+            while true do
+                e = u[i]
+                n = e[(function()
+                        return A
+                    end)()]
+                if n <= 6 then
+                    if n <= 2 then
+                        if n <= 0 then
+                            Z[e[(t)]] = o[e[(S)]]
+                        elseif n == 1 then
+                            do
+                                return
+                            end
+                        else
+                            Z[e[(t)]]()
+                        end
+                    elseif n <= 4 then
+                        if n > 3 then
+                            local e = e[(t)]
+                            Z[e](Z[e + 1])
+                        else
+                            Z[e[(t)]] = o[e[(S)]]
+                        end
+                    elseif n == 5 then
+                        o[e[(S)]] = Z[e[(t)]]
+                    else
+                        Z[e[(t)]] = e[(S)]
+                    end
+                elseif n <= 9 then
+                    if n <= 7 then
+                        Z[e[(t)]] = e[(S)]
+                    elseif n > 8 then
+                        Z[e[(t)]] = d(a[e[(S)]], nil, o)
+                    else
+                        do
+                            return
+                        end
+                    end
+                elseif n <= 11 then
+                    if n > 10 then
+                        Z[e[(t)]] = d(a[e[(S)]], nil, o)
+                    else
+                        o[e[(S)]] = Z[e[(t)]]
+                    end
+                elseif n == 12 then
+                    Z[e[(t)]]()
+                else
+                    local e = e[(t)]
+                    Z[e](Z[e + 1])
+                end
+                i = i + 1
+            end
+        end
+    end
+
+    return d(r(), {}, B())()
+end)(
+    [=[YQ(YQ+YRLYQ(YQ6YRLYQ+YS?YS:YS?YRMYRLYQ)YR@YQ(YQ,YR@YSJYSHYP<YP1YSNYR0YR@YS;YP(YP3YP3YP>YR@YRLYQ/YR@YPLYR!YR<YQ+YPLYQ-YQ+YRMYR>YR@YR#YR?Y]NYROYR1YR!YR3YR?YQ0YR!Y]IY]1Y]=YRLY]HY]?YR@Y]@Y]=YR<Y]JY]J]=],
+    1,
+    2,
+    3
+)
